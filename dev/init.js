@@ -1,138 +1,32 @@
 import TarkaChat from "../src/main.js";
 import "./style.css";
 
-const UPLOAD_TYPES = ["image/png", "image/jpeg"];
-
-function generateImageThumbnail(file) {
-  return new Promise((resolve) => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      const thumbnail = document.createElement("img");
-      thumbnail.src = e.target.result;
-      thumbnail.alt = file.name;
-      resolve(thumbnail);
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-function getPreChatScreen(onClose) {
-  const title = document.createElement("h3");
-  title.innerText = "Welcome to a demo prechat screen in TarkaChat";
-
-  const button = document.createElement("button");
-  button.innerText = "Next";
-  button.addEventListener("click", onClose);
-
-  const container = document.createElement("div");
-  container.id = "prechat-container";
-  container.appendChild(title);
-  container.appendChild(button);
-  return container;
-}
-
-async function sendMessage(message, optionalFiles) {
-  console.log(optionalFiles);
-  // Do API calls
+async function sendMessage(message) {
+  // API call
   await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  // after getting response use any one of the following to simulate different types of responses
-  let textResponse =
-    "This is a **markdown** __enabled__ text response \n * First list item \n * Second list item";
-  let textObjResponse = {
-    type: "text",
-    message: `Received user message ${message}`,
-  };
-  let fileObjResponse = {
-    type: "file",
-    name: "tarka trends",
-    link: "https://tarkalabs.com",
-  };
-  let imageObjResponse = {
-    type: "image",
-    name: "tarka logo",
-    link: "https://tarkalabs.com/assets/img/teamg2.94f91078.jpg",
-  };
-  let tableObjResponse = {
-    type: "table",
-    table_data: {
-      header: ["col1", "col2"],
-      rows: [
-        { col1: "a", col2: 1 },
-        { col1: "b", col2: 2 },
-      ],
+  return Promise.resolve([
+    {
+      type: "text",
+      message: `Received user message **${message}**`,
     },
-  };
-  let blankTableObjResponse = {
-    type: "table",
-    table_data: {
-      header: ["col1", "col2"],
-      rows: [],
-    },
-  };
-  let highchartsResponse = {
-    type: "highchart-config",
-    high_chart_config: {
-      chart: {
-        type: "pie",
-      },
-      title: {
-        text: "Browsers market share",
-      },
-      series: [
-        {
-          name: "Brands",
-          data: [
-            {
-              name: "Chrome",
-              y: 70,
-            },
-            {
-              name: "Firefox",
-              y: 20,
-            },
-            {
-              name: "Others",
-              y: 10,
-            },
-          ],
-        },
-      ],
-    },
-  };
-  let arrayResponse = [
-    { requestId: "request-id" },
-    textObjResponse,
-    tableObjResponse,
-    textResponse,
-  ];
-  return Promise.resolve(arrayResponse);
-}
-
-async function reportMessage(messageId, payload, message) {
-  console.log("messageId " + messageId);
-  console.log("message " + message);
-  console.log("payload :>> ", payload);
+    {
+      type: "tiles",
+      tiles_data: [
+        { title: "Report Name", url: "https://google.com" },
+        { title: "Report Name 2", url: "https://google.com" }
+      ]
+    }
+  ]);
 }
 
 const chat = TarkaChat.init({
-  title: "Stocks Advisor",
-  botName: "Stad",
-  greeting: "Hello. How can I assist you today?",
-  themeColor: "#F0DAFB",
-  selectorId: "tarkachatbot",
-  enableUpload: true,
-  uploadTypes: UPLOAD_TYPES,
-  generateUploadPreview: generateImageThumbnail,
-  preChatRenderer: getPreChatScreen,
+  title: "ZIVA",
+  botName: "ZIVA",
+  userName: "Hruser",
+  selectorId: "zivachatbot",
   submitHandler: sendMessage,
-  reportMessage: {
-    reportType: "ONLY_LAST_MESSAGE",
-    handle: reportMessage,
-  },
-  expand: true,
+  expand: false,
 });
 
-if (!chat.isOpen()) {
-  chat.toggle();
-}
+const toggleButton = document.getElementById("toggle-ziva");
+toggleButton.onclick = chat.toggle;
