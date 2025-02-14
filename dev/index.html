@@ -3,13 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <title>TarkaChat DevMode</title>
   </head>
-  <body>
-    <div id="tarkachatbot"></div>
+  <body style="background: #EEEEEE; width: 100%; padding: 0; margin: 0">
+    <!-- TEMPORARY HEADER -->
+    <header style="width: 100%; display: flex; justify-content: flex-end; background: #BBBBBB; box-sizing: border-box; padding: 10px 20px;">
+      <button id="toggle-ziva" style="padding: 7px 16px; background: #2255FF; color: #FFFFFF; border: 0; border-radius: 5px;">Open</button>
+    </header>
+    <!-- TEMPORARY HEADER -->
 
+    <div id="zivachatbot"></div>
     <script src="./init.js" type="module"></script>
   </body>
 </html>
