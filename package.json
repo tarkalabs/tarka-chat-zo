@@ -19,8 +19,6 @@
     "vite-plugin-css-injected-by-js": "^3.3.0"
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.0.2",
-    "lottie-web": "^5.12.2",
     "marked": "^12.0.1"
   }
 }
