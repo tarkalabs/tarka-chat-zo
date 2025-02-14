@@ -76,6 +76,10 @@
     bottom: 0;
     left: 0;
     z-index: 1000;
+    // background image will be imported and set using js
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: contain;
 
     h4 {
       font-size: 18px;
@@ -86,6 +90,7 @@
     p {
       font-size: 12px;
       line-height: 21px;
+      margin: 0;
     }
   }
 
