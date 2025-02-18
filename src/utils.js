@@ -22,7 +22,7 @@ export function createTilesNode(tiles) {
     imageContainer.innerHTML = `<img src=${attachmentImage.default} />`;
 
     const title = document.createElement("span");
-    title.innerHTML = tileData.title;
+    title.innerHTML = tileData.report_name;
 
     const tileNode = createNode("tile-item");
     tileNode.onclick = () => window.open(tileData.url, '_blank').focus();

@@ -72,7 +72,7 @@ const creatSubmitHandlerMethod = (sessionId) => {
       console.log("Question: ", message);
       const responseData = await response.json();
 
-      return Promise.resolve(responseData.content_json);
+      return Promise.resolve(responseData.content);
     } catch (err) {
       console.error(err);
       return Promise.resolve({
