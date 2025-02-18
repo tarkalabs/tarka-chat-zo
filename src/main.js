@@ -1,6 +1,7 @@
 import layout from "./layout.html?raw";
 import greetingsBackground from "./images/greetings-background.png";
 import logoImage from "./images/logo.png";
+import typingAnimation from "./images/typing-animation.gif";
 import "./style.scss";
 import { createNode, createTextNode, createTilesNode } from "./utils";
 
@@ -42,11 +43,24 @@ export default {
     }
 
     const setProcessing = (processing) => {
-      this.isProcessing = processing;
       const inputElement = document.querySelector("#ziva-chat .input-container input");
-      inputElement.disabled = processing;
       const submitButton = document.querySelector("#ziva-chat .input-container button");
+
+      this.isProcessing = processing;
+      inputElement.disabled = processing;
       submitButton.disabled = processing;
+
+      if (processing) {
+        const typingMessageElement = document.createElement("img");
+        typingMessageElement.src = typingAnimation;
+        typingMessageElement.className = "typing-animation";
+        const messagesContainer = document.querySelector("#ziva-chat .messages-container");
+        messagesContainer?.appendChild(typingMessageElement);
+        messagesContainer?.lastElementChild?.scrollIntoView();
+      } else {
+        const typingMessageElement = document.querySelector(".typing-animation");
+        typingMessageElement?.remove();
+      }
     };
 
     const messageHandler = async () => {
