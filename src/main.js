@@ -1,5 +1,6 @@
 import layout from "./layout.html?raw";
 import greetingsBackground from "./images/greetings-background.png";
+import logoImage from "./images/logo.png";
 import "./style.scss";
 import { createNode, createTextNode, createTilesNode } from "./utils";
 
@@ -66,6 +67,7 @@ export default {
     };
 
     targetElement.innerHTML = layout;
+    document.querySelector("#ziva-chat .header-title .logo").innerHTML = `<img src="${logoImage}"/>`;
     document.querySelector("#ziva-chat .header-title h4").textContent = this.title;
     document.querySelector("#ziva-chat .greetings-overlay h4").textContent = `Hello, ${this.userName}!`;
     document.querySelector("#ziva-chat .greetings-overlay").style.backgroundImage = `url(${greetingsBackground})`;

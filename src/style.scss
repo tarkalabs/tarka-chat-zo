@@ -29,16 +29,19 @@
 
     .header-title {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
 
       .logo {
-        height: 30px;
+        display: block;
+        width: 32px;
+        height: 32px;
+
+        img { height: 32px }
       }
 
       h4 {
-        font: 18px Lato, sans-serif;
-        font-weight: 800;
+        font: 26px Lato, sans-serif;
         margin: 0;
       }
     }
