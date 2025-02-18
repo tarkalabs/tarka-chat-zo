@@ -29,16 +29,19 @@
 
     .header-title {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
 
       .logo {
-        height: 30px;
+        display: block;
+        width: 32px;
+        height: 32px;
+
+        img { height: 32px }
       }
 
       h4 {
-        font: 18px Lato, sans-serif;
-        font-weight: 800;
+        font: 26px Lato, sans-serif;
         margin: 0;
       }
     }
@@ -101,6 +104,11 @@
     padding: 20px;
     position: relative;
 
+    .typing-animation {
+      display: block;
+      height: 40px;
+    }
+
     .message {
       width: 90%;
       max-width: 300px;
@@ -161,6 +169,7 @@
     .incoming .wrapper {
       background: #ffffff;
       border-top-left-radius: 0;
+      box-shadow: 0 1px 4px 0 rgba(58, 61, 89, 0.11);
     }
 
     .outgoing {
