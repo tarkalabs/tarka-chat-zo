@@ -1,13 +1,15 @@
 import TarkaChat from "../src/main.js";
 import "./style.css";
 
-async function startSession(passkey) {
-  const url = "http://localhost:3000/api/start-session";
+const API_URL = "http://localhost:3000"
+
+async function startSession() {
+  const url = API_URL+"/api/chat/start-session";
   const response = await fetch(url, {
-    headers: { Authorization: "Bearer " + passkey },
+    credentials: "include",
   });
   if (response.status >= 400 && response.status < 500) {
-    throw "Invalid Passkey";
+    throw "Failed to initialize session";
   } else if (response.status >= 500 && response.status < 600) {
     throw "Something went wrong. Please try again later";
   }
@@ -17,13 +19,7 @@ async function startSession(passkey) {
 
 const createSession = async () => {
   try {
-    // ! Deprecate that and replace this with cookie logic.
-    const passkey =
-      "$2a$10$/PjHaF7KdVQ/6hP.O.T7AexFsaCwGb.SNto/aYyzBFgTRkc1FAlFa";
-    sessionStorage.setItem("passkey", passkey);
-    // ! Till here
-
-    const sessionId = await startSession(passkey);
+    const sessionId = await startSession();
     if (!sessionId) {
       msgContainer.innerHTML = "Session id not found in response... Pls retry";
       return;
@@ -38,11 +34,9 @@ const createSession = async () => {
 
 const creatSubmitHandlerMethod = (sessionId) => {
   const submitHandler = async (message) => {
-    // ! remove this
-    const passkey = sessionStorage.getItem("passkey");
     const sessionId = sessionStorage.getItem("session-id");
 
-    const url = "http://localhost:3000/api/chat";
+    const url = API_URL+"/api/chat";
     const payload = { message, silo: "zo", sessionId };
     try {
       const response = await fetch(url, {
@@ -51,7 +45,6 @@ const creatSubmitHandlerMethod = (sessionId) => {
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + passkey,
         },
       });
 
