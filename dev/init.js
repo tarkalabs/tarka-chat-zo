@@ -1,10 +1,10 @@
 import TarkaChat from "../src/main.js";
 import "./style.css";
 
-const API_URL = "http://localhost:3000"
+const API_URL = "http://localhost:3000";
 
 async function startSession() {
-  const url = API_URL+"/api/chat/start-session";
+  const url = API_URL + "/api/chat/start-session";
   const response = await fetch(url, {
     credentials: "include",
   });
@@ -24,9 +24,8 @@ const createSession = async () => {
       msgContainer.innerHTML = "Session id not found in response... Pls retry";
       return;
     }
-    sessionStorage.setItem("session-id", sessionId);
 
-    return "mock-session-id";
+    return sessionId;
   } catch (e) {
     console.error(e);
   }
@@ -34,9 +33,7 @@ const createSession = async () => {
 
 const creatSubmitHandlerMethod = (sessionId) => {
   const submitHandler = async (message) => {
-    const sessionId = sessionStorage.getItem("session-id");
-
-    const url = API_URL+"/api/chat";
+    const url = API_URL + "/api/chat";
     const payload = { message, silo: "zo", sessionId };
     try {
       const response = await fetch(url, {
