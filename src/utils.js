@@ -25,6 +25,7 @@ export function createTilesNode(tiles) {
     title.innerHTML = tileData.report_name;
 
     const tileNode = createNode("tile-item");
+    tileNode.title = tileData.report_name;
     tileNode.onclick = () => window.open(tileData.url, '_blank').focus();
     tileNode.appendChild(imageContainer);
     tileNode.appendChild(title);
