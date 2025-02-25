@@ -3,10 +3,18 @@ import "./style.css";
 
 const API_URL = "http://localhost:3000";
 
+function parseCookies() {
+  return document.cookie.split(';').reduce((cookies, cookieString) => {
+    const [name, value] = cookieString.split('=');
+    cookies[name.trim()] = decodeURIComponent(value);
+    return cookies;
+  }, {});
+}
+
 async function startSession() {
   const url = API_URL + "/api/chat/start-session";
   const response = await fetch(url, {
-    credentials: "include",
+    headers: parseCookies(),
   });
   if (response.status >= 400 && response.status < 500) {
     throw "Failed to initialize session";
@@ -39,8 +47,8 @@ const creatSubmitHandlerMethod = (sessionId) => {
       const response = await fetch(url, {
         method: "POST",
         body: JSON.stringify(payload),
-        credentials: "include",
         headers: {
+          ...parseCookies(),
           "Content-Type": "application/json",
         },
       });
@@ -81,6 +89,7 @@ const initializeChatbot = (submitHandler) => {
     userName: "Hruser",
     selectorId: "zivachatbot",
     submitHandler: submitHandler,
+    onTileClick: (url) => {return console.log(url)},
     expand: false,
   });
   return chat;

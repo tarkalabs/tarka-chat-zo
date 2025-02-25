@@ -15,7 +15,7 @@ export function createTextNode(text) {
   return createNode("content-text", markdownText);
 }
 
-export function createTilesNode(tiles) {
+export function createTilesNode(tiles,onTileClick) {
   const wrapperNode = createNode("content-tiles");
   tiles.forEach(tileData => {
     const imageContainer = document.createElement("div");
@@ -26,7 +26,7 @@ export function createTilesNode(tiles) {
 
     const tileNode = createNode("tile-item");
     tileNode.title = tileData.report_name;
-    tileNode.onclick = () => window.open(tileData.url, '_blank').focus();
+    tileNode.onclick = () => onTileClick(tileData.url);
     tileNode.appendChild(imageContainer);
     tileNode.appendChild(title);
 

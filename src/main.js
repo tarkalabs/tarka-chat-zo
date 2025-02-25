@@ -19,7 +19,7 @@ export default {
     this.botName = config.botName;
     this.userName = config.userName ?? this.userName;
 
-    this.render(config.submitHandler);
+    this.render(config.submitHandler, config.onTileClick);
     this.toggle(config.expand || INITIAL_STATE);
     return { toggle: this.toggle, isOpen: this.isOpen };
   },
@@ -35,7 +35,7 @@ export default {
     chatContainer.style.display = shouldBeOpen ? "flex" : "none";
   },
 
-  render: function (submitHandler) {
+  render: function (submitHandler, onTileClick) {
     const targetElement = document.getElementById(this.selectorId);
     if (!targetElement) {
       console.error(`Element with ID "${this.selectorId}" not found.`);
@@ -74,7 +74,7 @@ export default {
       setProcessing(true);
       const response = await submitHandler(text);
       setProcessing(false);
-      this.insertMessage(response, true, false);
+      this.insertMessage(response, true, false, onTileClick);
 
       msgInput.value = "";
       msgInput.focus();
@@ -105,7 +105,7 @@ export default {
     greetingsOverlay.style.display = "none";
   },
 
-  createNodeByType(data) {
+  createNodeByType(data, onTileClick = null) {
     if (typeof data === "string") {
       data = { type: "text", message: data };
     }
@@ -116,13 +116,13 @@ export default {
       case "text":
         return createTextNode(data.message);
       case "tiles":
-        return createTilesNode(data.tiles_data);
+        return createTilesNode(data.tiles_data, onTileClick);
       default:
         throw new Error(`Invalid type: ${type}`);
     }
   },
 
-  insertMessage(data = "", incoming = false, showReportMessage = false) {
+  insertMessage(data = "", incoming = false, showReportMessage = false,onTileClick = null,) {
     // Timestamp
     const messageTimestamp = createNode("message-timestamp");
     messageTimestamp.innerHTML = new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
@@ -130,9 +130,9 @@ export default {
     // Message (can be an array)
     const messageContentWrapper = createNode("wrapper");
     if (Array.isArray(data)) {
-      data.forEach((item) => messageContentWrapper.appendChild(this.createNodeByType(item)));
+      data.forEach((item) =>messageContentWrapper.appendChild(this.createNodeByType(item, onTileClick),));
     } else {
-      messageContentWrapper.appendChild(this.createNodeByType(data));
+      messageContentWrapper.appendChild(this.createNodeByType(data, onTileClick));
     }
 
     // Full message object including timestamp
