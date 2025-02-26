@@ -160,6 +160,14 @@
             border: 1px solid #CDCDCD;
             border-radius: 100%;
             overflow: hidden;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            img{
+              display: block;
+              width: 15px;
+              height: 15px;
+            }
           }
 
           span {
