@@ -19,7 +19,7 @@ export function createTilesNode(tiles,onTileClick) {
   const wrapperNode = createNode("content-tiles");
   tiles.forEach(tileData => {
     const imageContainer = document.createElement("div");
-    imageContainer.innerHTML = `<img src=${attachmentImage.default} />`;
+    imageContainer.innerHTML = `<img src=${tileData.icon} onerror="this.onerror=null; this.src='${attachmentImage.default}'"/>`;
 
     const title = document.createElement("span");
     title.innerHTML = tileData.report_name;
