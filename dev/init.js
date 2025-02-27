@@ -61,7 +61,17 @@ const creatSubmitHandlerMethod = (sessionId) => {
       }
 
       if (errorMsg) {
-        return Promise.resolve([{ type: "text", message: errorMsg }]);
+        try {
+          const parsedError = JSON.parse(errorMsg);
+          return Promise.resolve([
+            {
+              type: "text",
+              message: "Something went wrong. Please try again later.",
+            },
+          ]);
+        } catch {
+          return Promise.resolve([{ type: "text", message: errorMsg }]);
+        }
       }
       if (!response.ok) {
         return Promise.resolve(response.json());
